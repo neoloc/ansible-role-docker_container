@@ -1,0 +1,18 @@
+---
+dependencies: []
+galaxy_info:
+  author: Jan Michalek
+  role_name: docker-container
+  description: Ansible role for running docker containers
+  company: m-cloud.cz
+  license: MIT
+  min_ansible_version: 2.8
+  platforms:
+    - name: Debian
+      versions:
+        - buster
+    - name: Ubuntu
+      versions:
+        - xenial
+        - bionic
+        - focal

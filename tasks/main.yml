@@ -1,0 +1,64 @@
+---
+- block:
+    - name: Install dependencies
+      apt:
+        name: python-setuptools
+
+    - name: Install pip via easyinstall
+      easy_install:
+        name: pip
+  when: ansible_python.version.major < 3
+
+- block:
+    - name: Install dependencies
+      apt:
+        name:
+          - python3-pip
+          - python3-setuptools
+
+    - name: Upgrade pip
+      pip:
+        name: pip>20.0"{{ ',<21.0' if ansible_python.version.minor <= 5 else '' }}"
+  when: ansible_python.version.major >= 3
+
+- name: Install ansible_docker dependencies
+  pip:
+    name: docker
+
+- name: Deploy container
+  docker_container:
+    name: "{{ instance.name }}"
+    state: "{{ instance.state | default('started') }}"
+    image: "{{ instance.image }}"
+    entrypoint: "{{ instance.entrypoint | default(omit) }}"
+    hostname: "{{ instance.hostname | default(omit) }}"
+    command: "{{ instance.command | default(omit) }}"
+    restart_policy: unless-stopped
+    etc_hosts: "{{ instance.etc_hosts | default(omit) }}"
+    log_options: "{{ _apps_docker_log_options | default(omit) }}"
+    env: "{{ instance.env | default(omit) }}"
+    volumes: "{{ instance.volumes | default(omit) }}"
+    user: "{{ instance.user | default(omit) }}"
+    memory: "{{ instance.memory | default(omit) }}"
+    domainname: "{{ instance.domainname | default(omit) }}"
+    published_ports: "{{ instance.published_ports | default(omit) }}"
+    network_mode: "{{ instance.network_mode | default(omit) }}"
+    container_default_behavior: "{{ instance.container_default_behavior | default('compatibility') }}"
+  with_items: "{{ docker_containers }}"
+  loop_control:
+    loop_var: instance
+    label: "{{ instance.name }}"
+
+- block:
+    - name: Install docker compose if needed
+      pip:
+        name: docker-compose
+        version: "{{ docker_compose_version }}"
+
+    - name: Deploy docker-composes
+      include_tasks: docker-compose.yml
+      with_items: "{{ docker_composes }}"
+      loop_control:
+        loop_var: instance
+        label: "{{ instance.name }}"
+  when: docker_composes | length > 0

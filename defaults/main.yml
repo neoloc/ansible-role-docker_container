@@ -1,0 +1,68 @@
+---
+docker_containers: {}
+docker_composes: []
+docker_compose_version: 1.24.1
+docker_compose_definition_path: /root/docker-composes/
+
+####### Examples ########
+
+# docker_containers:
+#   - name: seafile_instance
+#     image: seafileltd/seafile@sha256:f0d42312c8935973515213677619b3fed877c7276949ac18e01804565a21ba7e
+#     volumes:
+#       - "/opt/docker/seafile/instance:/shared"
+#     published_ports:
+#       - "3080:80"
+#     env:
+#       SEAFILE_ADMIN_PASSWORD: "PASSWORD"
+#       SEAFILE_SERVER_HOSTNAME: "host.example.com"
+#       SEAFILE_ADMIN_EMAIL: "mail@example.com"
+#       DEBIAN_FRONTEND: "noninteractive"
+#       LANG: "en_US.UTF-8"
+#       LANGUAGE: "en_US:en"
+#       LC_ALL: "en_US.UTF-8"
+#       UPDATED_AT: "20180412"
+#       SEAFILE_VERSION: "6.3.4"
+#       SEAFILE_SERVER: "seafile-server"
+
+# docker_composes:
+#   - name: seafile-instance
+#     definition:
+#       version: '2.0'
+#       services:
+#         db:
+#           image: mariadb:10.1
+#           container_name: seafile-mysql
+#           environment:
+#             - MYSQL_ROOT_PASSWORD=PASSWORD
+#             - MYSQL_LOG_CONSOLE=true
+#           volumes:
+#             - /opt/docker/seafile-instance/seafile-mysql/db:/var/lib/mysql
+#           networks:
+#             - seafile-net
+#         memcached:
+#           image: memcached:1.5.6
+#           container_name: seafile-memcached
+#           entrypoint: memcached -m 256
+#           networks:
+#             - seafile-net
+#         seafile:
+#           image: seafileltd/seafile-mc:7.0.2
+#           container_name: seafile
+#           ports:
+#             - "3180:80"
+#           volumes:
+#             - /opt/docker/seafile-instance/seafile-data:/shared
+#           environment:
+#             - DB_HOST=db
+#             - DB_ROOT_PASSWD=PASSWORD
+#             - SEAFILE_ADMIN_PASSWORD=PASSWORD
+#             - SEAFILE_SERVER_HOSTNAME=instance.example.at
+#             - SEAFILE_ADMIN_EMAIL=mail@example.at
+#           depends_on:
+#             - db
+#             - memcached
+#           networks:
+#             - seafile-net
+#       networks:
+#         seafile-net:

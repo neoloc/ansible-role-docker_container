@@ -1,0 +1,24 @@
+---
+- name: Deploy docker-compose
+  docker_compose:
+    project_name: "{{ instance.name }}"
+    definition: "{{ instance.definition|default(omit) }}"
+    project_src: "{{ instance.project_src|default(omit) }}"
+    state: "{{ instance.state | default('present') }}"
+    build: "{{ instance.build | default(omit) }}"
+
+- block:
+    - name: Create dirs for docker-composes
+      file:
+        path: "{{ docker_compose_definition_path }}/{{ instance.name }}"
+        state: directory
+        mode: 0755
+
+    - name: Print composes to files, to enable local control
+      copy:
+        content: "{{ instance.definition|to_nice_yaml }}"
+        dest: "{{ docker_compose_definition_path }}/{{ instance.name }}/docker-compose.yml"
+        mode: 0644
+  when:
+    - instance.definition is defined
+    - instance.state|default('present') == 'present'

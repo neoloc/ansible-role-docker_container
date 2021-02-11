@@ -1,0 +1,14 @@
+---
+ansible_python_interpreter: /usr/bin/python3
+docker_containers:
+  - name: nginx_instance_1
+    image: nginx
+    published_ports:
+      - "3080:80"
+    container_default_behavior: compatibility
+
+  - name: nginx_instance_2
+    image: nginx
+    published_ports:
+      - "3081:80"
+    container_default_behavior: no_defaults

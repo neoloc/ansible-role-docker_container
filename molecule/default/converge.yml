@@ -1,0 +1,6 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: veselahouba.docker
+    - role: "{{ lookup('env', 'PWD') | basename }}"
