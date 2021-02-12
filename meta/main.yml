@@ -2,7 +2,7 @@
 dependencies: []
 galaxy_info:
   author: Jan Michalek
-  role_name: docker-container
+  role_name: docker_container
   description: Ansible role for running docker containers
   company: m-cloud.cz
   license: MIT
