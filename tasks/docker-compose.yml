@@ -1,12 +1,12 @@
 ---
 - name: Login to repository if needed
   docker_login:
-    registry_url: "{{ instance.login.registry_url|default(omit) }}"
-    username: "{{ instance.login.user }}"
-    password: "{{ instance.login.password }}"
+    registry_url: "{{ instance.docker_login.registry_url|default(omit) }}"
+    username: "{{ instance.docker_login.username }}"
+    password: "{{ instance.docker_login.password }}"
     reauthorize: "{{ instance.login.reauthorize|default(omit) }}"
   when:
-    - instance.login is defined
+    - instance.docker_login is defined
     - instance.state|default('present') == 'present'
 
 - name: Deploy docker-compose

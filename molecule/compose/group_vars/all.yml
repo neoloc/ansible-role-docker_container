@@ -63,9 +63,9 @@ docker_composes:
         db_data: {}
 
   - name: seafile-pro
-    login:
+    docker_login:
       registry_url: docker.seadrive.org
-      user: seafile
+      username: seafile
       password: zjkmid6rQibdZ=uJMuWS
     definition:
       version: '2.0'
