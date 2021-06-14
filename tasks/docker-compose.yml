@@ -16,6 +16,7 @@
     project_src: "{{ instance.project_src|default(omit) }}"
     state: "{{ instance.state | default('present') }}"
     build: "{{ instance.build | default(omit) }}"
+    pull: "{{ instance.pull | default(omit) }}"
 
 - block:
     - name: Create dirs for docker-composes
