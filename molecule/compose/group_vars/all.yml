@@ -2,6 +2,7 @@
 ansible_python_interpreter: /usr/bin/python3
 docker_composes:
   - name: wordpress
+    pull: true
     definition:
       version: '3.3'
       services:
