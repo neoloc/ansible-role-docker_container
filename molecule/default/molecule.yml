@@ -7,6 +7,8 @@ platforms:
   - name: ${REPO_NAME}-${MOLECULE_IMAGE}-${REF}
     server_type: cx11
     image: ${MOLECULE_IMAGE}
+    custom_ssh_key_name: molecule.admin
+    location: fsn1
 provisioner:
   name: ansible
 verifier:

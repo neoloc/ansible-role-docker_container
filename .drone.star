@@ -11,6 +11,7 @@ def main(ctx):
   ]
   hetzner_images = [
     "debian-10",
+    "debian-11",
     "ubuntu-18.04",
     "ubuntu-20.04"
   ]
