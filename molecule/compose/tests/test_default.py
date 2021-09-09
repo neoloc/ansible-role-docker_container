@@ -22,7 +22,6 @@ def test_docker_container_running(host):
     assert c.rc == 0
     assert 'wordpress' in c.stdout
     assert 'db' in c.stdout
-    assert 'seafile_instance' in c.stdout
 
 
 def test_deployed_container(host):
