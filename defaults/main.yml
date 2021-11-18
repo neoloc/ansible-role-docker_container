@@ -1,7 +1,7 @@
 ---
 docker_containers: {}
 docker_composes: []
-docker_compose_version: 1.24.1
+docker_compose_version: 1.29.2
 docker_compose_definition_path: /root/docker-composes/
 
 ####### Examples ########
