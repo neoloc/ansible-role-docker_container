@@ -4,3 +4,9 @@
   roles:
     - role: veselahouba.docker
     - role: "{{ lookup('env', 'PWD') | basename }}"
+  post_tasks:
+    - name: dump
+      changed_when: false
+      copy:
+        content: "{{ vars | to_yaml }}"
+        dest: /tmp/ansible-vars.yml

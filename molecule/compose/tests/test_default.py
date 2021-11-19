@@ -1,9 +1,20 @@
 import os
 
+import yaml
+
 import testinfra.utils.ansible_runner
 
 testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
     os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('all')
+
+
+def test_docker_compose_version(host):
+    stream = host.file('/tmp/ansible-vars.yml').content
+    ansible_vars = yaml.load(stream, Loader=yaml.FullLoader)
+    def_version = ansible_vars['docker_compose_version']
+    c = host.run('docker-compose -v')
+    assert c.rc == 0
+    assert def_version in c.stdout
 
 
 def test_docker_is_running(host):
