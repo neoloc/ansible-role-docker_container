@@ -9,7 +9,7 @@
     - instance.docker_login is defined
     - instance.state|default('present') == 'present'
 
-- name: Deploy docker-compose
+- name: Deploy docker-compose - {{ instance.name }}
   docker_compose:
     project_name: "{{ instance.name }}"
     definition: "{{ instance.definition|default(omit) }}"
@@ -25,7 +25,7 @@
         state: directory
         mode: 0755
 
-    - name: Print composes to files, to enable local control
+    - name: Print composes to files, to enable local control - {{ instance.name }}
       copy:
         content: "{{ instance.definition|to_nice_yaml }}"
         dest: "{{ docker_compose_definition_path }}/{{ instance.name }}/docker-compose.yml"
