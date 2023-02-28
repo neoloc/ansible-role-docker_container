@@ -1,10 +1,9 @@
 ---
 dependencies: []
 galaxy_info:
-  author: Jan Michalek
+  author: neoloc
   role_name: docker_container
   description: Ansible role for running docker containers
-  company: m-cloud.cz
   license: MIT
   min_ansible_version: 2.8
   platforms:
