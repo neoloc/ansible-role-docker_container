@@ -44,7 +44,7 @@
     published_ports: "{{ instance.published_ports | default(omit) }}"
     network_mode: "{{ instance.network_mode | default(omit) }}"
     container_default_behavior: "{{ instance.container_default_behavior | default('compatibility') }}"
-  with_items: "{{ docker_containers }}"
+  with_items: "{{ docker_containers_containers }}"
   loop_control:
     loop_var: instance
     label: "{{ instance.name }}"
@@ -53,12 +53,12 @@
     - name: Install docker compose if needed
       pip:
         name: docker-compose
-        version: "{{ docker_compose_version }}"
+        version: "{{ docker_containers_compose_version }}"
 
     - name: Deploy docker-composes
       include_tasks: docker-compose.yml
-      with_items: "{{ docker_composes }}"
+      with_items: "{{ docker_containers_composes }}"
       loop_control:
         loop_var: instance
         label: "{{ instance.name }}"
-  when: docker_composes | length > 0
+  when: docker_containers_composes | length > 0

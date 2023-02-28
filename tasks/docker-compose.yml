@@ -21,14 +21,14 @@
 - block:
     - name: Create dirs for docker-composes
       file:
-        path: "{{ docker_compose_definition_path }}/{{ instance.name }}"
+        path: "{{ docker_containers_compose_definition_path }}/{{ instance.name }}"
         state: directory
         mode: 0755
 
     - name: Print composes to files, to enable local control - {{ instance.name }}
       copy:
         content: "{{ instance.definition|to_nice_yaml }}"
-        dest: "{{ docker_compose_definition_path }}/{{ instance.name }}/docker-compose.yml"
+        dest: "{{ docker_containers_compose_definition_path }}/{{ instance.name }}/docker-compose.yml"
         mode: 0644
   when:
     - instance.definition is defined

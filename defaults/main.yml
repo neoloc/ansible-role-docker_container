@@ -1,12 +1,13 @@
 ---
-docker_containers: {}
-docker_composes: []
-docker_compose_version: 1.29.2
-docker_compose_definition_path: /root/docker-composes/
+
+docker_containers_containers: {}
+docker_containers_composes: []
+docker_containers_compose_version: 1.29.2
+docker_containers_compose_definition_path: /root/docker_containers-composes/
 
 ####### Examples ########
 
-# docker_containers:
+# docker_containers_containers:
 #   - name: seafile_instance
 #     image: seafileltd/seafile@sha256:f0d42312c8935973515213677619b3fed877c7276949ac18e01804565a21ba7e
 #     volumes:
@@ -25,7 +26,7 @@ docker_compose_definition_path: /root/docker-composes/
 #       SEAFILE_VERSION: "6.3.4"
 #       SEAFILE_SERVER: "seafile-server"
 
-# docker_composes:
+# docker_containers_composes:
 #   - name: seafile-instance
 #     definition:
 #       version: '2.0'
