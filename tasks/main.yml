@@ -56,11 +56,6 @@
         label: "{{ instance.name }}"
     
     - block:
-        - name: Install docker compose if needed
-          pip:
-            name: docker-compose
-            version: "{{ docker_containers_compose_version }}"
-    
         - name: Deploy docker-composes
           include_tasks: docker-compose.yml
           with_items: "{{ docker_containers_composes }}"
