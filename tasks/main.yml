@@ -1,9 +1,10 @@
 ---
-- block:
+- name: docker containers
   when: docker_containers_configure == true
   tags:
     - docker
     - docker-compose
+  block:
     - block:
         - name: Install dependencies
           apt:
