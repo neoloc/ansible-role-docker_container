@@ -30,7 +30,7 @@
     - name: Install ansible_docker dependencies
       pip:
         name: docker
-    
+
     - name: Deploy container
       docker_container:
         name: "{{ instance.name }}"
@@ -56,6 +56,10 @@
         label: "{{ instance.name }}"
     
     - block:
+        - name: Install docker compose
+          pip:
+            name: docker-compose  
+    
         - name: Deploy docker-composes
           include_tasks: docker-compose.yml
           with_items: "{{ docker_containers_composes }}"
